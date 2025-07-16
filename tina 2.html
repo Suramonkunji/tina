@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hey bertina 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #ffe6f0, #ffccdd);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+    #question-box {
+      z-index: 2;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      font-size: 24px;
+      color: #d63384;
+      margin-bottom: 20px;
+    }
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #ff80ab;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #ff4d88;
+    }
+    .petal {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: url('https://i.imgur.com/ViPupkY.png') no-repeat center center / contain;
+      animation: fall linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="question-box">
+    <h2 id="question">Are you happy with me btw?😛</h2>
+    <button onclick="handleAnswer('yes', 'Are you happy with me btw?😛')">Yes</button>
+    <button onclick="handleAnswer('no', 'Are you happy with me btw?😛')">No</button>
+  </div>
+
+  <script>
+    const questionEl = document.getElementById("question-box");
+
+    function logAnswer(question, answer) {
+      fetch("https://script.google.com/macros/s/AKfycbzfbsLNgHrdp6CcyDBn4P45Do7GZf86aMgwuzKep-Os6oV6gi8f4DOaSYr8dWGxjiam/exec", {
+        method: "POST",
+        body: JSON.stringify({ question, answer }),
+        headers: { "Content-Type": "application/json" }
+      }).catch(err => console.error('Logging error:', err));
+    }
+
+    function handleAnswer(answer, questionText) {
+      logAnswer(questionText, answer);
+
+      if (questionText === "Are you happy with me btw?😛") {
+        if (answer === 'yes') {
+          questionEl.innerHTML = `<h2>wanna be my gf until our marriage?😏🎀</h2>
+            <button onclick="handleAnswer('yes', 'wanna be my gf until our marriage?😏🎀')">Yes</button>
+            <button onclick="handleAnswer('no', 'wanna be my gf until our marriage?😏🎀')">No</button>`;
+        } else {
+          alert("Then tell me why, I love you more than anything.");
+          window.close();
+        }
+      } else if (questionText === "wanna be my gf until our marriage?😏🎀") {
+        if (answer === 'no') {
+          alert("We will get life only once, let's do crime together as my wife 😼");
+          window.close();
+        } else {
+          questionEl.innerHTML = `<h2>wanna do all crime with me ?💣💕</h2>
+            <button onclick="handleAnswer('yes', 'wanna do all crime with me ?💣💕')">Yes</button>
+            <button onclick="handleAnswer('no', 'wanna do all crime with me ?💣💕')">No</button>`;
+        }
+      } else if (questionText === "wanna do all crime with me ?💣💕") {
+        if (answer === 'no') {
+          alert("Then you say what to do and let's do together ❤️😍");
+          window.close();
+        } else {
+          alert("Then let's plan about our kids 🎀");
+          window.close();
+        }
+      }
+    }
+
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = 5 + Math.random() * 5 + 's';
+      document.body.appendChild(petal);
+
+      setTimeout(() => {
+        petal.remove();
+      }, 10000);
+    }
+
+    setInterval(createPetal, 300);
+  </script>
+</body>
+</html>
